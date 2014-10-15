@@ -4,7 +4,7 @@ DonkeyFactory = {
 		var IMAGE_HEIGHT = 100;
 
 		Logger.debug("Initializing Donkey");
-		var me = new Sprite('images/dk.jpg', 100, H-100, IMAGE_WIDTH, IMAGE_HEIGHT,{centered:true});
+		var me = new Sprite('images/dk.png', 100, H-100, IMAGE_WIDTH, IMAGE_HEIGHT,{centered:true});
 
 		me.isActive = true;
 		me.stepNumber = 1;
@@ -26,4 +26,4 @@ DonkeyFactory = {
 
 		return me;
 	}
-}	
+};
