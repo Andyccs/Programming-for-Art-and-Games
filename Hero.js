@@ -47,11 +47,17 @@ HeroFactory = {
 		
 		document.onkeydown = function(e) {
 			e = window.event;
-
-			Logger.debug("key down: "+e.keyCode);
 			
 			if (e.keyCode == '38') {
 				me.upKey = true;
+				Logger.debug(Portal1);
+				if(Portal1.isInside(me.x,me.y)){	
+					me.y = 307;
+				}
+
+				if(Portal2.isInside(me.x,me.y)){
+					me.y = 546;
+				}
 			}
 			else if (e.keyCode == '37') {
 				me.leftKey = true;
@@ -73,8 +79,6 @@ HeroFactory = {
 		document.onkeyup = function(e){
 			e = window.event;
 
-			Logger.debug("key up: "+e.keyCode);
-
 			if (e.keyCode == '38') {
 				me.upKey = false;
 			}
@@ -90,7 +94,6 @@ HeroFactory = {
 		}
 		
 		me.step = function() {
-			Logger.debug("x: "+me.x+", y: "+me.y);
 			if(Math.abs(me.vx)>0){
 				if(me.rightKey == false && me.leftKey == false){
 					me.vx = me.vx - me.vx*0.1;
@@ -133,9 +136,9 @@ HeroFactory = {
 				me.x = W - IMAGE_WIDTH/2;
 			}else if (me.x > rightWall-1) {
 				if(me.isFlying){
-					Logger.debug("Flying");
+					// Logger.debug("Flying");
 				}else{
-					Logger.debug("Walking");
+					// Logger.debug("Walking");
 					me.x = rightWall-1;				
 				}
 			}

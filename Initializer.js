@@ -8,7 +8,8 @@ var H = 700; //the frame width and height
 var Donkey;
 var Map;
 var Hero;
-
+var Portal1;
+var Portal2;
 //physical constants
 var g = 0.1;
 
@@ -21,6 +22,7 @@ var EPS = 0.01;
 //the simulation objects
 //all objects in this list are updated by the timer loop
 var simList = [];
+
 
 Initializer = {
 	init : function init(){
@@ -50,6 +52,11 @@ Initializer = {
 
 		Hero = HeroFactory.createHero(0,100);
 		simList.push(Hero);
+
+		Portal1 = PortalFactory.createPortal(W-50, Map.lvlOneStep3Btm);
+		Portal2 = PortalFactory.createPortal(50, Map.lvlTwoBtm);
+
+
 	
 		window.onmousedown = function(e){
 			var x = getMouseX(e);	//get mouse-x in Frame coordinates	
