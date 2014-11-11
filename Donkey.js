@@ -31,6 +31,7 @@ DonkeyFactory = {
 				//create shit here
 				shit = ShitFactory.createShit(me.x,me.y,1,1);
 				simList.push(shit);
+				collider.push(shit);
 			}
 
 			//start moving

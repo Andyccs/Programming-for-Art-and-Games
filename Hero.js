@@ -131,6 +131,9 @@ HeroFactory = {
 		}
 		
 		me.step = function() {
+			if(me.isDied){
+				return;
+			}
 			if(me.isShooting){
 				me.shoot();
 			}else{

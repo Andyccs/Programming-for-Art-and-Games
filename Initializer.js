@@ -23,6 +23,11 @@ var EPS = 0.01;
 //all objects in this list are updated by the timer loop
 var simList = [];
 
+var collider = [];
+isCollide = function(hero,collider){
+	return hero.x>collider.x-collider.w/2 && hero.x<collider.x+collider.w/2 &&
+		hero.y>collider.y-collider.h/2 && hero.y<collider.y+collider.h/2;
+}
 
 Initializer = {
 	init : function init(){
@@ -42,6 +47,13 @@ Initializer = {
 				}
 			}
 
+			for (var i=0; i<collider.length; i++) {
+				if (isCollide(Hero,collider[i])) {
+					Hero.isDied = true;
+					collider[i].isActive = false;
+				}
+			}
+
 			Map.colliderHandler();
 
 			Frame.draw();
@@ -49,6 +61,7 @@ Initializer = {
 
 		Donkey = DonkeyFactory.createDonkey();
 		simList.push(Donkey);
+		collider.push(Donkey);
 
 		Hero = HeroFactory.createHero(0,100);
 		simList.push(Hero);
