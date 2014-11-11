@@ -7,12 +7,16 @@ var W = 1000;
 var H = 700; //the frame width and height
 var Donkey;
 var Map;
+var Hero;
 
 //physical constants
 var g = 0.1;
 
 //time step for physical simulation
-var dt = 1;		
+var dt = 1;	
+
+//tolerance
+var EPS = 0.01;	
 
 //the simulation objects
 //all objects in this list are updated by the timer loop
@@ -43,6 +47,9 @@ Initializer = {
 
 		Donkey = DonkeyFactory.createDonkey();
 		simList.push(Donkey);
+
+		Hero = HeroFactory.createHero(0,100);
+		simList.push(Hero);
 	
 		window.onmousedown = function(e){
 			var x = getMouseX(e);	//get mouse-x in Frame coordinates	
