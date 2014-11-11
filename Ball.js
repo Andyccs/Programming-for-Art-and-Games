@@ -6,6 +6,8 @@ BallFactory = {
 		//initialize vx and vy
 		me.vx = vx;
 		me.vy = vy;
+		me.w = 2*r;
+		me.h = 2*r
 		
 		me.step = function(){
 			me.vy = me.vy - g*dt;

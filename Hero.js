@@ -18,6 +18,8 @@ HeroFactory = {
 		me.vy = 1;
 		me.isShooting = false;		
 		me.bullet;
+		me.w = IMAGE_WIDTH;
+		me.h = IMAGE_HEIGHT;
 
 		me.ground = 0;
 
@@ -54,6 +56,10 @@ HeroFactory = {
 			}
 			me.bullet.setOpacity(1);
 			me.isShooting = true;
+
+			if(me.y>=Map.lvlThreeBtm){
+				Donkey.minusLife();
+			}
 		}
 
 		me.endshoot = function(){
@@ -76,10 +82,12 @@ HeroFactory = {
 				Logger.debug(Portal1);
 				if(Portal1.isInside(me.x,me.y)){	
 					me.y = 307;
+					me.level = 2;
 				}
 
 				if(Portal2.isInside(me.x,me.y)){
 					me.y = 546;
+					me.level = 3;
 				}
 			}
 			else if (e.keyCode == '37') {
@@ -137,54 +145,15 @@ HeroFactory = {
 				}
 			}
 
-			//gravity
-			me.vy = me.vy - g*dt;
-
-			//update wall information
-			var leftWall = IMAGE_WIDTH/2;
-			var rightWall = W - IMAGE_WIDTH/2;
-
-			if(me.ground < Map.lvlTwoBtm){
-
-				//765
-				if(me.x<=Map.lvlOneStep1Left){
-					rightWall = Map.lvlOneStep1Left;
-				}
-				//816
-				else if(me.x<=Map.lvlOneStep2Left){
-					rightWall = Map.lvlOneStep2Left;
-				}
-				//872
-				else if(me.x<=Map.lvlOneStep3Left){
-					rightWall = Map.lvlOneStep3Left;
-				}
-			}
-
-			me.y = me.y + me.vy*dt;
-			me.x = me.x + me.vx*dt;
-
-			//check for left/right walls
-			if (me.x < leftWall) {
-				me.x = leftWall;
-			}else if(me.x > W - IMAGE_WIDTH/2){
-				me.x = W - IMAGE_WIDTH/2;
-			}else if (me.x > rightWall-1) {
-				if(me.isFlying){
-					// Logger.debug("Flying");
-				}else{
-					// Logger.debug("Walking");
-					me.x = rightWall-1;				
-				}
-			}
-
-			//prevent drop below ground
-			if (me.y < me.ground){
-				me.y = me.ground;
-				me.vy = 0;
+			if(me.vy==0){
 				me.isFlying = false;
 			}
 
-			me.changeGround();
+			//gravity
+			me.vy = me.vy - g*dt;
+
+			me.y = me.y + me.vy*dt;
+			me.x = me.x + me.vx*dt;
 
 		}
 		

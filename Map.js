@@ -55,49 +55,74 @@ MapFactory = {
 					Logger.debug("Shit at y:"+collider.y+", level :"+collider.level);
 				}
 
-				//collision on level 1
-				if(collider.level == 1){
-					if(
-						(collider.x > me.lvlOneStep3Left && collider.y <= me.lvlOneStep3Btm) ||
-						(collider.x > me.lvlOneStep2Left && collider.y <= me.lvlOneStep2Btm) ||
-						(collider.x > me.lvlOneStep1Left && collider.y <= me.lvlOneStep1Btm) ||
-						(collider.y <= me.lvlOneBtm)
-						){
-						collider.vx = 0;
-						collider.vy = 0;
-						collider.isActive = false;
+				if(collider.level == 1 && collider.vy!=0){
+					//765
+					if(collider.x<=Map.lvlOneStep1Left){
+						collider.levelOneStep = 764;
+					}
+					//816
+					else if(collider.x<=Map.lvlOneStep2Left){
+						collider.levelOneStep = 816;
+					}
+					//872
+					else if(collider.x<=Map.lvlOneStep3Left){
+						collider.levelOneStep = 872;
+					}
+					else{
+						collider.levelOneStep = 1000;
 					}
 				}
+
+				//collision on level 1
+				if(collider.level == 1){
+					if(collider.x >= me.lvlOneStep3Left && collider.y < me.lvlOneStep3Btm){
+						collider.y = me.lvlOneStep3Btm;
+						collider.vy = 0;
+					}
+					else if(collider.x >= me.lvlOneStep2Left && collider.y < me.lvlOneStep2Btm){
+						collider.y = me.lvlOneStep2Btm;
+						collider.vy = 0;
+					}
+					else if(collider.x >= me.lvlOneStep1Left && collider.y < me.lvlOneStep1Btm){
+						collider.y = me.lvlOneStep1Btm;
+						collider.vy = 0;
+					}else if(collider.y < me.lvlOneBtm){
+						collider.y = me.lvlOneBtm;
+						collider.vy = 0;
+					}
+
+					if(collider.x>collider.levelOneStep-5 && collider.vy==0){
+						collider.x = collider.levelOneStep-5;
+						collider.vx = 0;
+					}
+					
+				}
 				//collision on level 2
-				else if(collider.level == 2 && collider.y <= me.lvlTwoBtm){
+				else if(collider.level == 2 && collider.y < me.lvlTwoBtm){
 
 					//check whether it is at hole position
 					if(MapChecker.isBetween(me.lvlTwoHoleLeft,me.lvlTwoHoleRight, collider.x)){
 						collider.level = 1;
 
 					}else{
-						collider.vx = 0;
+						collider.y = me.lvlTwoBtm;
 						collider.vy = 0;
-						collider.isActive = false;
 					}
 				}
 				//collision on level 3
-				else if(collider.level == 3 && collider.y <= me.lvlThreeBtm){
-					collider.vx = 0;
+				else if(collider.level == 3 && collider.y < me.lvlThreeBtm){
+					collider.y = me.lvlThreeBtm;
 					collider.vy = 0;
-					collider.isActive = false;
 				}
 
-				if(collider.x<=0){
-					collider.x = 0;
-					collider.vx = 0;
-					collider.isActive = true;
+				if(collider.x<=collider.w/2){
+					collider.x = collider.w/2;
 				}
-				else if (collider.x > W){
-					collider.x = W;
-					collider.vx = 0;
-					collider.isActive = true;
+				else if (collider.x > W-collider.w/2){
+					collider.x = W-collider.w/2;
 				}
+
+
 
 			}
 		}

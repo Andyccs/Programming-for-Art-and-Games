@@ -52,6 +52,7 @@ Initializer = {
 
 		Hero = HeroFactory.createHero(0,100);
 		simList.push(Hero);
+		Map.colliderList.push(Hero);
 
 		Portal1 = PortalFactory.createPortal(W-50, Map.lvlOneStep3Btm);
 		Portal2 = PortalFactory.createPortal(50, Map.lvlTwoBtm);
