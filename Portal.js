@@ -9,7 +9,7 @@ PortalFactory = {
 		me.y = y;
 
 		me.isInside = function isInside(x,y){
-			return me.x-IMAGE_WIDTH<x && x<me.x+IMAGE_WIDTH && y<me.y+IMAGE_HEIGHT;
+			return me.x-IMAGE_WIDTH<x && x<me.x+IMAGE_WIDTH && y<me.y+IMAGE_HEIGHT && y>me.y-IMAGE_HEIGHT;
 		}
 		return me;
 	}

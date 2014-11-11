@@ -56,8 +56,6 @@ Initializer = {
 		Portal1 = PortalFactory.createPortal(W-50, Map.lvlOneStep3Btm);
 		Portal2 = PortalFactory.createPortal(50, Map.lvlTwoBtm);
 
-
-	
 		window.onmousedown = function(e){
 			var x = getMouseX(e);	//get mouse-x in Frame coordinates	
 			var y = getMouseY(e);	//get mouse-y in Frame coordinates

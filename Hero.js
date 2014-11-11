@@ -16,7 +16,8 @@ HeroFactory = {
 		me.y = y;
 		me.vx = 0;
 		me.vy = 1;
-		me.smootTransition = 0;
+		me.isShooting = false;		
+		me.bullet;
 
 		me.ground = 0;
 
@@ -41,6 +42,28 @@ HeroFactory = {
 			}
 
 			return me.ground != prevGround;
+		}
+
+		me.shoot = function(){
+			if(me.bullet==null){
+				me.bullet = new Rect(me.x,me.y,Math.abs(me.x-Donkey.x),10,{color:'red'});
+			}else{
+				me.bullet.w = Math.abs(me.x-Donkey.x);
+				me.bullet.x = me.x<Donkey.x?me.x:Donkey.x;
+				me.bullet.y = me.y;
+			}
+			me.bullet.setOpacity(1);
+			me.isShooting = true;
+		}
+
+		me.endshoot = function(){
+			if(me.bullet!=null){
+				me.bullet.setOpacity(me.bullet.opacity-0.01);
+				if(me.bullet.opacity<=0){
+					me.bullet = null;
+				}
+			}
+			me.isShooting = false;
 		}
 
 		me.changeGround();
@@ -72,7 +95,10 @@ HeroFactory = {
 			else if (e.keyCode == '32' && !me.isFlying) {
 				me.spaceKey = true;
 				me.isFlying = true;
-				me.vy = 2.5;
+				me.vy = 5;
+			}
+			else if(e.keyCode == '90'){
+				me.isShooting = true;
 			}
 		}
 
@@ -91,9 +117,17 @@ HeroFactory = {
 			else if (e.keyCode == '32') {
 				me.spaceKey = false;
 			}
+			else if(e.keyCode == '90'){
+				me.isShooting = false;;
+			}
 		}
 		
 		me.step = function() {
+			if(me.isShooting){
+				me.shoot();
+			}else{
+				me.endshoot();
+			}
 			if(Math.abs(me.vx)>0){
 				if(me.rightKey == false && me.leftKey == false){
 					me.vx = me.vx - me.vx*0.1;
