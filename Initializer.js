@@ -24,6 +24,7 @@ var EPS = 0.01;
 var simList = [];
 
 var collider = [];
+
 isCollide = function(hero,collider){
 	return hero.x>collider.x-collider.w/2 && hero.x<collider.x+collider.w/2 &&
 		hero.y>collider.y-collider.h/2 && hero.y<collider.y+collider.h/2;
