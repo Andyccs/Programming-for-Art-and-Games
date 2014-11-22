@@ -160,18 +160,25 @@ BulletFactory = {
 		me.isActive = true;
 		me.w = IMAGE_WIDTH;
 		me.h = IMAGE_HEIGHT;
-		me.isCollide = function(){
-			return Donkey.x-Donkey.w/2<this.x && this.x<Donkey.x+Donkey.w/2 && 
-				Donkey.y-Donkey.h/2<this.y && this.y<Donkey.y+Donkey.h/2;
+		me.isCollide = function(victim){
+			return victim.x-victim.w/2<this.x && this.x<victim.x+victim.w/2 && 
+				victim.y-victim.h/2<this.y && this.y<victim.y+victim.h/2;
 		};
 		me.step = function(){
 			//law of motion
 			this.x = this.x + this.vx*dt;
 
-			if(this.isCollide()){
+			if(this.isCollide(Donkey)){
 				Donkey.minusLife();
 				me.hide();
 				this.isActive = false;
+			}
+
+			if(this.isCollide(Minion)&& Minion.isActive){
+				Minion.hide();
+				me.hide()
+				this.isActive = false;
+				Minion.isActive = false;
 			}
 		};
 		simList.push(me);

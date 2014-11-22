@@ -8,6 +8,7 @@ var H = 700; //the frame width and height
 var Donkey;
 var Map;
 var Hero;
+var Minion;
 var Portal1;
 var Portal2;
 //physical constants
@@ -70,6 +71,9 @@ Initializer = {
 
 		Portal1 = PortalFactory.createPortal(W-50, Map.lvlOneStep3Btm);
 		Portal2 = PortalFactory.createPortal(50, Map.lvlTwoBtm);
+
+		Minion = MinionFactory.spawnRandomMinion();
+		simList.push(Minion);
 
 		window.onmousedown = function(e){
 			var x = getMouseX(e);	//get mouse-x in Frame coordinates	
