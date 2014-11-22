@@ -1,3 +1,6 @@
+
+var BULLET_SPEED = 10;
+
 HeroFactory = {
 	createHero : function createHero(x,y){
 		var IMAGE_WIDTH = 40;
@@ -47,28 +50,11 @@ HeroFactory = {
 		}
 
 		me.shoot = function(){
-			if(me.bullet==null){
-				me.bullet = new Rect(me.x,me.y,Math.abs(me.x-Donkey.x),10,{color:'red'});
-			}else{
-				me.bullet.w = Math.abs(me.x-Donkey.x);
-				me.bullet.x = me.x<Donkey.x?me.x:Donkey.x;
-				me.bullet.y = me.y;
-			}
-			me.bullet.setOpacity(1);
+			var bullet = BulletFactory.createBullet(me.x, me.y, me.vx);
 			me.isShooting = true;
-
-			if(me.y>=Map.lvlThreeBtm){
-				Donkey.minusLife();
-			}
 		}
 
 		me.endshoot = function(){
-			if(me.bullet!=null){
-				me.bullet.setOpacity(me.bullet.opacity-0.01);
-				if(me.bullet.opacity<=0){
-					me.bullet = null;
-				}
-			}
 			me.isShooting = false;
 		}
 
@@ -162,4 +148,35 @@ HeroFactory = {
 		
 		return me;
 	}
+};
+
+BulletFactory = {
+	createBullet : function(x, y, vx){
+		var IMAGE_WIDTH = 20;
+		var IMAGE_HEIGHT = 20;
+
+		var me = new Sprite('images/fireball.png', x, y, IMAGE_WIDTH, IMAGE_HEIGHT , {centered: true,tracking: true});
+		me.vx = vx==0?BULLET_SPEED:vx/Math.abs(vx)*BULLET_SPEED;
+		me.isActive = true;
+		me.w = IMAGE_WIDTH;
+		me.h = IMAGE_HEIGHT;
+		me.isCollide = function(){
+			return Donkey.x-Donkey.w/2<this.x && this.x<Donkey.x+Donkey.w/2 && 
+				Donkey.y-Donkey.h/2<this.y && this.y<Donkey.y+Donkey.h/2;
+		};
+		me.step = function(){
+			//law of motion
+			this.x = this.x + this.vx*dt;
+
+			if(this.isCollide()){
+				Donkey.minusLife();
+				me.hide();
+				this.isActive = false;
+			}
+		};
+		simList.push(me);
+		return me;
+	},
+
+
 };
