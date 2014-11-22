@@ -50,9 +50,15 @@ Initializer = {
 			}
 
 			for (var i=0; i<collider.length; i++) {
-				if (isCollide(Hero,collider[i])) {
+				if (isCollide(Hero,collider[i]) && !Hero.isDied && collider[i].isActive) {
 					Hero.isDied = true;
 					collider[i].isActive = false;
+
+					GameOver = new Rect(W/2, H/2, 200, 200,
+						{	centered:true,
+							color:"transparent", 
+							fontSize:100});
+					GameOver.text = "Game Over";
 				}
 			}
 

@@ -36,6 +36,16 @@ DonkeyFactory = {
 
 			//start moving
 			me.x = me.x + me.stepNumber;
+
+			if(me.life<=0){
+				me.isActive = false;
+				Hero.isActive = false;
+				GameOver = new Rect(W/2, H/2, 200, 200,
+					{	centered:true,
+						color:"transparent", 
+						fontSize:100});
+				GameOver.text = "You Win";
+			}
 		};
 
 		return me;
