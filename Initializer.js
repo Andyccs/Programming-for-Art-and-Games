@@ -59,6 +59,8 @@ Initializer = {
 							color:"transparent", 
 							fontSize:100});
 					GameOver.text = "Game Over";
+					
+					document.getElementById("gameOverMusic").play();
 				}
 			}
 
@@ -81,13 +83,13 @@ Initializer = {
 		Minion = MinionFactory.spawnRandomMinion();
 		simList.push(Minion);
 
-		window.onmousedown = function(e){
-			var x = getMouseX(e);	//get mouse-x in Frame coordinates	
-			var y = getMouseY(e);	//get mouse-y in Frame coordinates
+		// window.onmousedown = function(e){
+		// 	var x = getMouseX(e);	//get mouse-x in Frame coordinates	
+		// 	var y = getMouseY(e);	//get mouse-y in Frame coordinates
 			
-			newBall = BallFactory.createBall(x, y, 20, 0, 1);
-			simList.push(newBall);
-			Map.colliderList.push(newBall);
-		}	
+		// 	newBall = BallFactory.createBall(x, y, 20, 0, 1);
+		// 	simList.push(newBall);
+		// 	Map.colliderList.push(newBall);
+		// }	
 	}
 }

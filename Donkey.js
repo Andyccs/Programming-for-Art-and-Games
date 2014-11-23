@@ -32,6 +32,10 @@ DonkeyFactory = {
 				shit = ShitFactory.createShit(me.x,me.y,1,1);
 				simList.push(shit);
 				collider.push(shit);
+
+				document.getElementById("shittingSound").pause();
+				document.getElementById("shittingSound").currentTime = 0;
+				document.getElementById("shittingSound").play();
 			}
 
 			//start moving
@@ -45,6 +49,8 @@ DonkeyFactory = {
 						color:"transparent", 
 						fontSize:100});
 				GameOver.text = "You Win";
+
+				document.getElementById("victoryMusic").play();
 			}
 		};
 

@@ -52,6 +52,9 @@ HeroFactory = {
 		me.shoot = function(){
 			var bullet = BulletFactory.createBullet(me.x, me.y, me.vx);
 			me.isShooting = true;
+			document.getElementById("shootingSound").pause();
+			document.getElementById("shootingSound").currentTime = 0;
+			document.getElementById("shootingSound").play();
 		}
 
 		me.endshoot = function(){
@@ -90,6 +93,11 @@ HeroFactory = {
 				me.spaceKey = true;
 				me.isFlying = true;
 				me.vy = 5;
+
+
+				document.getElementById("jumpSound").pause();
+				document.getElementById("jumpSound").currentTime = 0;
+				document.getElementById("jumpSound").play();
 			}
 			else if(e.keyCode == '90'){
 				me.isShooting = true;
@@ -182,6 +190,7 @@ BulletFactory = {
 			}
 		};
 		simList.push(me);
+
 		return me;
 	},
 
