@@ -1,10 +1,9 @@
 ShitFactory = {
 	createShit : function createShit(x,y,vx,vy){
-		var IMAGE_WIDTH = 50;
-		var IMAGE_HEIGHT = 50;
+		var IMAGE_WIDTH = 55;
+		var IMAGE_HEIGHT = 55;
 
-		Logger.debug("Initializing Shit");
-		var me = new Sprite('images/shit.png', x, y, IMAGE_WIDTH, IMAGE_HEIGHT,{tracking:true});
+		var me = new Sprite('images/fireballround.png', x, y, IMAGE_WIDTH, IMAGE_HEIGHT,{tracking:true});
 
 		me.isActive = true;
 		me.stepNumber = 1;
@@ -23,7 +22,7 @@ ShitFactory = {
 				var hideAfterThat = setInterval(function () {
 					me.hide();
 					clearInterval(hideAfterThat);
-				}, 2000);
+				}, 300);
 			}
 		}
 

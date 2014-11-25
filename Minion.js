@@ -1,7 +1,7 @@
 MinionFactory = {
 	spawnRandomMinion : function(){
-		var IMAGE_WIDTH = 30;
-		var IMAGE_HEIGHT = 30;
+		var IMAGE_WIDTH = 50;
+		var IMAGE_HEIGHT = 50;
 
 		var randomInt = randInt(2);
 		var randomX = 0;

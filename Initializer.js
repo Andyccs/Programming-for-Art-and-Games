@@ -1,4 +1,3 @@
-Logger.debug("Initializing Global Variable");
 var tick = 20;	//sim timer interval
 
 // var W = window.innerWidth;
@@ -33,8 +32,8 @@ isCollide = function(hero,collider){
 
 Initializer = {
 	init : function init(){
-		Logger.debug("Initializing Sprite Library");
 		Frame.addBkgndImg('images/map1.png');
+		Frame.addFgndImg('images/controls.png');
 
 		var left = (window.innerWidth-W)/2;
 		var top = (window.innerHeight-H)/2;
@@ -80,8 +79,10 @@ Initializer = {
 		Portal1 = PortalFactory.createPortal(W-50, Map.lvlOneStep3Btm);
 		Portal2 = PortalFactory.createPortal(50, Map.lvlTwoBtm);
 
-		Minion = MinionFactory.spawnRandomMinion();
-		simList.push(Minion);
+		Minion1 = MinionFactory.spawnRandomMinion();
+		Minion2 = MinionFactory.spawnRandomMinion();
+		simList.push(Minion1);
+		simList.push(Minion2);
 
 		// window.onmousedown = function(e){
 		// 	var x = getMouseX(e);	//get mouse-x in Frame coordinates	

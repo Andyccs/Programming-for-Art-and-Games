@@ -5,8 +5,6 @@ HeroFactory = {
 	createHero : function createHero(x,y){
 		var IMAGE_WIDTH = 40;
 		var IMAGE_HEIGHT = 40;
-
-		Logger.debug("Initializing Hero");
 			
 		var me = new Sprite('images/hero.png', x, y, IMAGE_WIDTH, IMAGE_HEIGHT , {centered: true});
 		me.isActive = true;
@@ -23,6 +21,8 @@ HeroFactory = {
 		me.bullet;
 		me.w = IMAGE_WIDTH;
 		me.h = IMAGE_HEIGHT;
+		me.firstKeyPressed = false;
+		me.shootLimiter = 0;
 
 		me.ground = 0;
 
@@ -50,11 +50,12 @@ HeroFactory = {
 		}
 
 		me.shoot = function(){
-			var bullet = BulletFactory.createBullet(me.x, me.y, me.vx);
-			me.isShooting = true;
-			document.getElementById("shootingSound").pause();
-			document.getElementById("shootingSound").currentTime = 0;
-			document.getElementById("shootingSound").play();
+				var bullet = BulletFactory.createBullet(me.x, me.y, me.vx);
+				me.isShooting = true;
+				document.getElementById("shootingSound").pause();
+				document.getElementById("shootingSound").currentTime = 0;
+				document.getElementById("shootingSound").play();
+				me.shootLimiter = 15;
 		}
 
 		me.endshoot = function(){
@@ -66,9 +67,14 @@ HeroFactory = {
 		document.onkeydown = function(e) {
 			e = window.event;
 			
+			
+			if (me.firstKeyPressed == false) {
+				Frame.addFgndImg('');
+				me.firstKeyPressed = true;
+			}
+			
 			if (e.keyCode == '38') {
 				me.upKey = true;
-				Logger.debug(Portal1);
 				if(Portal1.isInside(me.x,me.y)){	
 					me.y = 307;
 					me.level = 2;
@@ -128,7 +134,12 @@ HeroFactory = {
 			if(me.isDied){
 				return;
 			}
-			if(me.isShooting){
+			
+			if (me.shootLimiter >= 1) {
+				me.shootLimiter = me.shootLimiter - 1;
+			}
+			
+			if(me.isShooting && me.shootLimiter == 0){
 				me.shoot();
 			}else{
 				me.endshoot();
@@ -168,6 +179,7 @@ BulletFactory = {
 		me.isActive = true;
 		me.w = IMAGE_WIDTH;
 		me.h = IMAGE_HEIGHT;
+		me.stepsTaken = 0;
 		me.isCollide = function(victim){
 			return victim.x-victim.w/2<this.x && this.x<victim.x+victim.w/2 && 
 				victim.y-victim.h/2<this.y && this.y<victim.y+victim.h/2;
@@ -182,12 +194,39 @@ BulletFactory = {
 				this.isActive = false;
 			}
 
-			if(this.isCollide(Minion)&& Minion.isActive){
-				Minion.hide();
+			if(this.isCollide(Minion1)&& Minion1.isActive){
+				Minion1.hide();
 				me.hide()
 				this.isActive = false;
-				Minion.isActive = false;
+				Minion1.isActive = false;
+				Donkey.stepMod = Donkey.stepMod - 40;
+				Donkey.stepNumber = Donkey.stepNumber + 1;
 			}
+			
+			if(this.isCollide(Minion2)&& Minion2.isActive){
+				Minion2.hide();
+				me.hide()
+				this.isActive = false;
+				Minion2.isActive = false;
+				Donkey.stepMod = Donkey.stepMod - 40;
+				Donkey.stepNumber = Donkey.stepNumber + 1;
+			}
+			
+			me.stepsTaken = me.stepsTaken + 1;
+			
+			if(me.stepsTaken == 30) {
+			me.vx = 0;
+			me.hide();
+			this.isActive = false;
+			me.stepsTaken = 0;
+			}
+			
+			if(me.x < 0 || me.x > 1000) {
+			me.vx = 0;
+			me.hide();
+			this.isActive = false;
+			}
+
 		};
 		simList.push(me);
 

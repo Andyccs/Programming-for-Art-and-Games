@@ -52,7 +52,6 @@ MapFactory = {
 					else if(MapChecker.isBetween(me.lvlThreeBtm, me.lvlThreeTop, collider.y)){
 						collider.level = 3;
 					}
-					Logger.debug("Shit at y:"+collider.y+", level :"+collider.level);
 				}
 
 				if(collider.level == 1 && collider.vy!=0){
